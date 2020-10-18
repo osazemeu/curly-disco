@@ -16,7 +16,6 @@ require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 
 Bundler.require(*Rails.groups)
-Dotenv::Railtie.load
 
 module Buycoins
   class Application < Rails::Application
