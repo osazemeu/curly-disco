@@ -21,10 +21,8 @@ class BitcoinExchangePrice
     @rate_float = rate_float
   end
 
-  class << self
-    # Returns an instance of the bitcoin exchange price
-    def fetch(bitcoin_exchange_rate)
-      new(code: CURRENCY_CODE, description: DESCRIPTION, rate_float: bitcoin_exchange_rate)
-    end
+  # Returns an instance of the bitcoin exchange price
+  def self.fetch(bitcoin_exchange_rate)
+    new(code: CURRENCY_CODE, description: DESCRIPTION, rate_float: bitcoin_exchange_rate)
   end
 end

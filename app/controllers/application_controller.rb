@@ -1,4 +1,9 @@
-class ApplicationController < ActionController::API
+# frozen_string_literal: true
+
+class ApplicationController < ActionController::Base
+  # Callbacks
+  skip_before_action :verify_authenticity_token
+
   protected
 
   # Handle form data, JSON body, or a blank value
@@ -19,10 +24,10 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def handle_error_in_development(error)
-    logger.error error.message
-    logger.error error.backtrace.join("\n")
+  def handle_error_in_development(e)
+    logger.error e.message
+    logger.error e.backtrace.join("\n")
 
-    render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} }, status: 500
+    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
   end
 end
