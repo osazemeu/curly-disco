@@ -15,14 +15,16 @@ class BitcoinExchangePrice
   validates :description, presence: true
 
   def initialize(code:, description:, rate_float:)
-    @code = code
+    @code = code || CURRENCY_CODE
     @rate = number_with_delimiter(rate_float)
-    @description = description
+    @description = description || DESCRIPTION
     @rate_float = rate_float
   end
 
-  # Returns an instance of the bitcoin exchange price
-  def self.fetch(bitcoin_exchange_rate)
-    new(code: CURRENCY_CODE, description: DESCRIPTION, rate_float: bitcoin_exchange_rate)
+  class << self
+    # Returns an instance of the bitcoin exchange price
+    def fetch(bitcoin_exchange_rate)
+      new(code: CURRENCY_CODE, description: @description, rate_float: bitcoin_exchange_rate)
+    end
   end
 end

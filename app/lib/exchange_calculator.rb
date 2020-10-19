@@ -12,15 +12,21 @@ class ExchangeCalculator
 
   class << self
     def compute(bitcoin_price, type, computed_margin, exchange_rate)
+      bitcoin_value = compute_values(bitcoin_price, type, computed_margin)
+      (exchange_rate * bitcoin_value).round(ROUND_TO)
+    end
+
+    private
+
+    def compute_values(bitcoin_price, type, computed_margin)
       case type.downcase
       when 'sell'
-        bitcoin_value = bitcoin_price - computed_margin
+        bitcoin_price - computed_margin
       when 'buy'
-        bitcoin_value = bitcoin_price + computed_margin
+        bitcoin_price + computed_margin
       else
         raise ArgumentError, "Missing parameter: 'type' argument is not given"
       end
-      (exchange_rate * bitcoin_value).round(ROUND_TO)
     end
   end
 end

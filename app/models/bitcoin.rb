@@ -7,7 +7,7 @@ class Bitcoin
 
   format :json
 
-  # Dummy response object
+  # Dummy bitcoin price
   BITCOIN_PRICE = {
     'code' => 'USD',
     'symbol' => '$',
@@ -17,10 +17,8 @@ class Bitcoin
 
   # Fetch current price of bitcoin from CoinDesk API
   def self.current_price(currency = 'USD')
-    if Rails.env.development? || Rails.env.test?
-      BITCOIN_PRICE
-    else
-      get("/currentprice/#{currency}.json")['bpi'][currency.to_s]
-    end
+    return BITCOIN_PRICE if Rails.env.development? || Rails.env.test?
+
+    get("/currentprice/#{currency}.json")['bpi'][currency.to_s]
   end
 end
